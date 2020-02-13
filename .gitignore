@@ -1,0 +1,17 @@
+# build output
+dist
+
+# dependencies
+node_modules
+test/node_modules
+
+# logs & pids
+*.log
+pids
+
+# test output
+test/**/out
+.DS_Store
+
+# Editors
+**/.idea
