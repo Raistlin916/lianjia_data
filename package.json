@@ -7,13 +7,14 @@
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "dayjs": "^1.8.20",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "simple-git": "^1.131.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "work": "node src/fetchData.js"
   },
   "author": "",
   "license": "ISC"
