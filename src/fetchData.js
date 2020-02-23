@@ -20,7 +20,7 @@ const cityList = [
     name: '苏州'
   }
 ]
-const current = dayjs().format('YYYY-MM-DD ss')
+const current = dayjs().format('YYYY-MM-DD')
 const lianjiaPath = path.join(__dirname, '../data/lianjia')
 
 const getCityListingNumber = html =>
