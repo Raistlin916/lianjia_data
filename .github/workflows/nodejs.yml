@@ -3,6 +3,10 @@ name: Auto Work
 on:
   schedule:
     - cron: "0 */12 * * *"
+      
+  push:
+    branches:
+      - master
 
 jobs:
   release:
