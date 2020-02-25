@@ -92,8 +92,6 @@ const saveLocal = list => {
 const init = () => {
   return new Promise((resolve, reject) =>
     git
-      .fetch('origin', 'master')
-      .fetch('origin', 'data')
       .checkout('data')
       .mergeFromTo('master', 'data', err => (err ? reject(err) : resolve()))
   )
