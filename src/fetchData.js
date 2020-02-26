@@ -7,6 +7,15 @@ const _ = require('lodash')
 const git = require('simple-git')()
 const gitP = require('simple-git/promise')()
 
+// https://sf.taobao.com/item_list.htm?category=50025969&city=%CC%A9%D6%DD
+
+const fetchTaobao = async () => {
+  const res = await axios.get(`https://sf.taobao.com/item_list.htm?category=50025969&city=%CC%A9%D6%DD`)
+  const result = $(res.data).find('.count').text()
+  console.log(result)
+}
+fetchTaobao();
+
 const cityList = [
   {
     id: 'hz',
@@ -23,6 +32,7 @@ const cityList = [
 ]
 const current = dayjs().format('YYYY-MM-DD')
 const lianjiaPath = path.join(__dirname, '../data/lianjia')
+const taobaoPath = path.join(__dirname, '../data/taobao_paimai')
 
 const getCityListingNumber = html =>
   +$(html)
@@ -30,7 +40,7 @@ const getCityListingNumber = html =>
     .text()
     .match(/\d+/)[0]
 
-const createCityData = list => {
+const fetchCityData = list => {
   const create = async city => {
     const res = await axios.get(`https://${city}.lianjia.com/`)
     const listingNumber = getCityListingNumber(res.data)
@@ -106,12 +116,13 @@ const commit = () => {
 
 const log = text => data => console.log(text) || data
 
-init()
-  .then(() => createCityData(cityList))
-  .then(merge)
-  .then(log('merge success'))
-  .then(saveLocal)
-  .then(log('saveLocal success'))
-  .then(commit)
-  .then(log('commit success'))
-  .catch(msg => console.log(msg))
+// init()
+//   .then(() => fetchCityData(cityList))
+//   .then(merge)
+//   .then(log('merge success'))
+//   .then(saveLocal)
+//   .then(log('saveLocal success'))
+//   .then(commit)
+//   .then(log('commit success'))
+//   .catch(msg => console.log(msg))
+
