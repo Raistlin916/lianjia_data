@@ -90,10 +90,14 @@ const saveLocal = list => {
 }
 
 const init = () => {
-  return git
-    .branch(['data', 'origin/data'])
-    .checkout('data')
-    .mergeFromTo('master', 'data', '--squash')
+  return new Promise((resolve, reject) =>
+    git
+      .branch(['data', 'origin/data'])
+      .checkout('data')
+      .mergeFromTo('master', 'data', '--squash', err =>
+        err ? reject(err) : resolve()
+      )
+  )
 }
 
 const commit = () => {
