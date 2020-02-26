@@ -5,7 +5,6 @@ const $ = require('cheerio')
 const dayjs = require('dayjs')
 const _ = require('lodash')
 const git = require('simple-git')()
-const gitP = require('simple-git/promise')()
 
 const cityList = [
   {
@@ -91,7 +90,10 @@ const saveLocal = list => {
 }
 
 const init = () => {
-  return gitP.checkout('data')
+  return git
+    .branch(['data', 'origin/data'])
+    .checkout('data')
+    .mergeFromTo('master', 'data', '--squash')
 }
 
 const commit = () => {
