@@ -3,7 +3,7 @@ name: Auto Work
 on:
   schedule:
     - cron: "0 */12 * * *"
-      
+
   push:
     branches:
       - master
@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "10.x"
+       - name: Log
+        run: npm run work
       - name: Install Dependencies
         run: npm i
       - name: Auto Work
