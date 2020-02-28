@@ -92,6 +92,7 @@ const saveLocal = list => {
 const init = () => {
   return new Promise((resolve, reject) =>
     git
+      .addConfig('user.name', 'Industrious robot')
       .branch(['data', 'origin/data'])
       .checkout('data')
       .mergeFromTo('master', 'data', '--squash', err =>
@@ -104,7 +105,6 @@ const commit = () => {
   return new Promise((resolve, reject) =>
     git
       .add('./*')
-      .addConfig('user.name', 'Industrious robot')
       .commit(`save at ${current}`)
       .push('origin', 'data', err => (err ? reject(err) : resolve()))
   )
