@@ -5,7 +5,6 @@ const $ = require('cheerio')
 const dayjs = require('dayjs')
 const _ = require('lodash')
 const git = require('simple-git')()
-const gitP = require('simple-git/promise')()
 
 // https://sf.taobao.com/item_list.htm?category=50025969&city=%CC%A9%D6%DD
 
@@ -101,14 +100,21 @@ const saveLocal = list => {
 }
 
 const init = () => {
-  return gitP.checkout('data')
+  return new Promise((resolve, reject) =>
+    git
+      .addConfig('user.name', 'Industrious robot')
+      .branch(['data', 'origin/data'])
+      .checkout('data')
+      .mergeFromTo('master', 'data', '--squash', err =>
+        err ? reject(err) : resolve()
+      )
+  )
 }
 
 const commit = () => {
   return new Promise((resolve, reject) =>
     git
       .add('./*')
-      .addConfig('user.name', 'Industrious robot')
       .commit(`save at ${current}`)
       .push('origin', 'data', err => (err ? reject(err) : resolve()))
   )

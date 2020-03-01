@@ -14,7 +14,8 @@
     "eslint": "^6.8.0"
   },
   "scripts": {
-    "work": "node src/fetchData.js"
+    "work": "node src/fetchData.js",
+    "log": "git branch -r"
   },
   "author": "",
   "license": "ISC"
