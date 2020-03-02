@@ -66,23 +66,29 @@ const wrapFetchedData = (id, type) => count => ({
   origin: read(id, type)
 })
 
-const wrapFetch = type => cityObj =>
-  cityObj[type] === false
-    ? undefined
-    : fetch[type](cityObj).then(wrapFetchedData(cityObj.id, type))
+const wrapFetch = type => async cityObj => {
+  try {
+    return cityObj[type] === false
+      ? undefined
+      : await fetch[type](cityObj).then(wrapFetchedData(cityObj.id, type))
+  } catch (e) {
+    console.error(e)
+    return undefined
+  }
+}
 
-const fetchData = list =>
-  Promise.all(
-    list.reduce(
-      (pre, curr) =>
-        pre.concat(
-          [wrapFetch('lianjia'), wrapFetch('taobao')]
-            .map(item => item(curr))
-            .filter(i => i)
-        ),
-      []
+const fetchData = async list =>
+  (
+    await Promise.all(
+      list.reduce(
+        (pre, curr) =>
+          pre.concat(
+            [wrapFetch('lianjia'), wrapFetch('taobao')].map(item => item(curr))
+          ),
+        []
+      )
     )
-  )
+  ).filter(i => i)
 
 const read = (id, type) => {
   try {
@@ -133,6 +139,7 @@ const log = text => data => console.log(text) || data
 
 init()
   .then(() => fetchData(cityList))
+  .then(log('test'))
   .then(merge)
   .then(log('merge success'))
   .then(saveLocal)
