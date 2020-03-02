@@ -19,9 +19,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Log
-        run: npm run log
       - name: Install Dependencies
-        run: npm i
+        run: npm ci
       - name: Auto Work
         run: npm run work
