@@ -2,7 +2,7 @@
   "name": "lianjia2020",
   "version": "1.0.0",
   "description": "",
-  "main": "fetchData.js",
+  "main": "src/fetchData.js",
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
