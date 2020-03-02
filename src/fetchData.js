@@ -5,15 +5,13 @@ const $ = require('cheerio')
 const dayjs = require('dayjs')
 const _ = require('lodash')
 const git = require('simple-git')()
+const urlencode = require('urlencode')
 
-// https://sf.taobao.com/item_list.htm?category=50025969&city=%CC%A9%D6%DD
-
-const fetchTaobao = async () => {
-  const res = await axios.get(`https://sf.taobao.com/item_list.htm?category=50025969&city=%CC%A9%D6%DD`)
-  const result = $(res.data).find('.count').text()
-  console.log(result)
-}
-fetchTaobao();
+const getTaobaoUrl = name =>
+  `https://sf.taobao.com/item_list.htm?category=50025969&city=${urlencode.encode(
+    name,
+    'gbk'
+  )}`
 
 const cityList = [
   {
@@ -27,79 +25,90 @@ const cityList = [
   {
     id: 'su',
     name: '苏州'
+  },
+  {
+    id: 'nj',
+    name: '南京'
+  },
+  {
+    id: 'taizhou',
+    name: '泰州',
+    lianjia: false
   }
 ]
 const current = dayjs().format('YYYY-MM-DD')
-const lianjiaPath = path.join(__dirname, '../data/lianjia')
-const taobaoPath = path.join(__dirname, '../data/taobao_paimai')
+const pathMap = {
+  lianjia: path.join(__dirname, '../data/lianjia'),
+  taobao: path.join(__dirname, '../data/taobao_paimai')
+}
+const getPath = (id, type) => path.join(pathMap[type], `${id}.json`)
 
-const getCityListingNumber = html =>
-  +$(html)
-    .find('.house-num li:first-child')
-    .text()
-    .match(/\d+/)[0]
-
-const fetchCityData = list => {
-  const create = async city => {
-    const res = await axios.get(`https://${city}.lianjia.com/`)
-    const listingNumber = getCityListingNumber(res.data)
-    return {
-      listingNumber,
-      createAt: Date.now(),
-      date: current,
-      city
-    }
-  }
-
-  return Promise.all(list.map(item => create(item.id)))
+const fetch = {
+  lianjia: async ({ id }) =>
+    +$((await axios.get(`https://${id}.lianjia.com/`)).data)
+      .find('.house-num li:first-child')
+      .text()
+      .match(/\d+/)[0],
+  taobao: async ({ name }) =>
+    +$((await axios.get(getTaobaoUrl(name))).data)
+      .find('.count')
+      .text()
 }
 
-const readLocal = list => {
-  const read = city => {
-    try {
-      const data = fs.readFileSync(path.join(lianjiaPath, `${city}.json`))
-      return JSON.parse(data)
-    } catch (e) {
-      return []
-    }
-  }
+const wrapFetchedData = (id, type) => count => ({
+  type,
+  id,
+  result: {
+    listingNumber: count,
+    createAt: Date.now(),
+    date: current
+  },
+  origin: read(id, type)
+})
 
-  return list.reduce(
-    (previous, item) => ({
-      ...previous,
-      [item.id]: {
-        city: item.id,
-        list: read(item.id)
-      }
-    }),
-    {}
-  )
-}
+const wrapFetch = type => cityObj =>
+  cityObj[type] === false
+    ? undefined
+    : fetch[type](cityObj).then(wrapFetchedData(cityObj.id, type))
 
-const merge = list => {
-  const origin = readLocal(cityList)
-  return list.map(item => ({
-    ...item,
-    list: origin[item.city]
-      ? _.uniqBy([...origin[item.city].list, _.omit(item, 'city')], 'date')
-      : [_.omit(item, 'city')]
-  }))
-}
-
-const saveLocal = list => {
-  const dir = lianjiaPath
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
-  }
-  const save = (city, data) =>
-    fs.writeFileSync(
-      path.join(dir, `${city}.json`),
-      JSON.stringify(data, null, 2)
+const fetchData = list =>
+  Promise.all(
+    list.reduce(
+      (pre, curr) =>
+        pre.concat(
+          [wrapFetch('lianjia'), wrapFetch('taobao')]
+            .map(item => item(curr))
+            .filter(i => i)
+        ),
+      []
     )
-  list.forEach(item => save(item.city, item.list))
+  )
+
+const read = (id, type) => {
+  try {
+    const data = fs.readFileSync(getPath(id, type))
+    return JSON.parse(data)
+  } catch (e) {
+    return []
+  }
 }
+
+const merge = list =>
+  list.map(item => ({
+    ..._.omit(item, 'result', 'origin'),
+    list: _.uniqBy(item.origin.concat(item.result), 'date')
+  }))
+
+const saveLocal = list =>
+  list.forEach(item =>
+    fs.writeFileSync(
+      getPath(item.id, item.type),
+      JSON.stringify(item.list, null, 2)
+    )
+  )
 
 const init = () => {
+  Object.values(pathMap).forEach(dir => fs.existsSync(dir) || fs.mkdirSync(dir))
   return new Promise((resolve, reject) =>
     git
       .addConfig('user.name', 'Industrious robot')
@@ -122,13 +131,12 @@ const commit = () => {
 
 const log = text => data => console.log(text) || data
 
-// init()
-//   .then(() => fetchCityData(cityList))
-//   .then(merge)
-//   .then(log('merge success'))
-//   .then(saveLocal)
-//   .then(log('saveLocal success'))
-//   .then(commit)
-//   .then(log('commit success'))
-//   .catch(msg => console.log(msg))
-
+init()
+  .then(() => fetchData(cityList))
+  .then(merge)
+  .then(log('merge success'))
+  .then(saveLocal)
+  .then(log('saveLocal success'))
+  .then(commit)
+  .then(log('commit success'))
+  .catch(msg => console.log(msg))
