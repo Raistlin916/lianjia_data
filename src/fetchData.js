@@ -29,36 +29,14 @@ const fetchCityList = async () =>
     }))
     .get()
     .filter(i => i.id)
-// .map(item => ({
-//   id: (item.attr('href').match(/^https:\/\/(\w+)\.lianjia.com.*$/) || [])[1],
-//   name: item.text(),
-//   url: item.attr('href')
-// }))
-// .filter(i => i.id)
+    .concat([
+      {
+        id: 'jiangsu_taizhou',
+        name: '泰州',
+        lianjia: false
+      }
+    ])
 
-const cityList = [
-  {
-    id: 'hz',
-    name: '杭州'
-  },
-  {
-    id: 'sh',
-    name: '上海'
-  },
-  {
-    id: 'su',
-    name: '苏州'
-  },
-  {
-    id: 'nj',
-    name: '南京'
-  },
-  {
-    id: 'jiangsu_taizhou',
-    name: '泰州',
-    lianjia: false
-  }
-]
 const current = dayjs().format('YYYY-MM-DD')
 const pathMap = {
   lianjia: path.join(__dirname, '../data/lianjia'),
@@ -167,8 +145,7 @@ const commit = () => {
 
 const print = text => data => console.log(text) || data
 
-// init()
-Promise.resolve()
+init()
   .then(fetchCityList)
   .then(print('fetch index success'))
   .then(fetchData)
@@ -176,7 +153,7 @@ Promise.resolve()
   .then(merge)
   .then(print('merge success'))
   .then(saveLocal)
-//   .then(print('saveLocal success'))
-//   .then(commit)
-//   .then(print('commit success'))
-//   .catch(msg => console.print(msg))
+  .then(print('saveLocal success'))
+  .then(commit)
+  .then(print('commit success'))
+  .catch(msg => console.print(msg))
