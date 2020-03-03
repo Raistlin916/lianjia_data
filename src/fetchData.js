@@ -6,12 +6,35 @@ const dayjs = require('dayjs')
 const _ = require('lodash')
 const git = require('simple-git')()
 const urlencode = require('urlencode')
+const { ConcurrencyManager } = require('axios-concurrency')
+const log = require('./common/log')
+
+ConcurrencyManager(axios, 5)
 
 const getTaobaoUrl = name =>
   `https://sf.taobao.com/item_list.htm?category=50025969&city=${urlencode.encode(
     name,
     'gbk'
   )}`
+
+const fetchCityList = async () =>
+  $((await axios.get(`https://www.lianjia.com/city/`)).data)
+    .find('.city_list_li_selected a')
+    .map((i, elem) => ({
+      url: $(elem).attr('href'),
+      name: $(elem).text(),
+      id: ($(elem)
+        .attr('href')
+        .match(/^https:\/\/(\w+)\.lianjia.com.*$/) || [])[1]
+    }))
+    .get()
+    .filter(i => i.id)
+// .map(item => ({
+//   id: (item.attr('href').match(/^https:\/\/(\w+)\.lianjia.com.*$/) || [])[1],
+//   name: item.text(),
+//   url: item.attr('href')
+// }))
+// .filter(i => i.id)
 
 const cityList = [
   {
@@ -31,7 +54,7 @@ const cityList = [
     name: '南京'
   },
   {
-    id: 'taizhou',
+    id: 'jiangsu_taizhou',
     name: '泰州',
     lianjia: false
   }
@@ -68,11 +91,18 @@ const wrapFetchedData = (id, type) => count => ({
 
 const wrapFetch = type => async cityObj => {
   try {
-    return cityObj[type] === false
-      ? undefined
-      : await fetch[type](cityObj).then(wrapFetchedData(cityObj.id, type))
+    if (cityObj[type] === false) {
+      return undefined
+    }
+    const logName = `fetch ${type}-${cityObj.id} success`
+    console.time(logName)
+    const result = await fetch[type](cityObj).then(
+      wrapFetchedData(cityObj.id, type)
+    )
+    console.timeEnd(logName)
+    return result
   } catch (e) {
-    console.error(e)
+    log.error('fetch fail', e, cityObj)
     return undefined
   }
 }
@@ -135,15 +165,18 @@ const commit = () => {
   )
 }
 
-const log = text => data => console.log(text) || data
+const print = text => data => console.log(text) || data
 
-init()
-  .then(() => fetchData(cityList))
-  .then(log('test'))
+// init()
+Promise.resolve()
+  .then(fetchCityList)
+  .then(print('fetch index success'))
+  .then(fetchData)
+  .then(print('fetch pages success'))
   .then(merge)
-  .then(log('merge success'))
+  .then(print('merge success'))
   .then(saveLocal)
-  .then(log('saveLocal success'))
-  .then(commit)
-  .then(log('commit success'))
-  .catch(msg => console.log(msg))
+//   .then(print('saveLocal success'))
+//   .then(commit)
+//   .then(print('commit success'))
+//   .catch(msg => console.print(msg))
