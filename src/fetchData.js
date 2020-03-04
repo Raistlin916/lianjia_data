@@ -33,13 +33,15 @@ const fetchCityList = async () =>
       {
         id: 'jiangsu_taizhou',
         name: '泰州',
-        lianjia: false
+        lianjia: false,
+        lianjiaChengjiao: false
       }
     ])
 
 const current = dayjs().format('YYYY-MM-DD')
 const pathMap = {
   lianjia: path.join(__dirname, '../data/lianjia'),
+  lianjiaChengjiao: path.join(__dirname, '../data/lianjia_chengjiao'),
   taobao: path.join(__dirname, '../data/taobao_paimai')
 }
 const getPath = (id, type) => path.join(pathMap[type], `${id}.json`)
@@ -48,6 +50,11 @@ const fetch = {
   lianjia: async ({ id }) =>
     +$((await axios.get(`https://${id}.lianjia.com/`)).data)
       .find('.house-num li:first-child')
+      .text()
+      .match(/\d+/)[0],
+  lianjiaChengjiao: async ({ id }) =>
+    +$((await axios.get(`https://${id}.lianjia.com/chengjiao`)).data)
+      .find('.resultDes')
       .text()
       .match(/\d+/)[0],
   taobao: async ({ name }) =>
@@ -91,7 +98,9 @@ const fetchData = async list =>
       list.reduce(
         (pre, curr) =>
           pre.concat(
-            [wrapFetch('lianjia'), wrapFetch('taobao')].map(item => item(curr))
+            ['lianjia', 'lianjiaChengjiao', 'taobao']
+              .map(wrapFetch)
+              .map(item => item(curr))
           ),
         []
       )
@@ -123,7 +132,10 @@ const saveLocal = list =>
 
 const init = () => {
   Object.values(pathMap).forEach(dir => fs.existsSync(dir) || fs.mkdirSync(dir))
-  return new Promise((resolve, reject) =>
+}
+
+const checkoutDataBranch = () =>
+  new Promise((resolve, reject) =>
     git
       .addConfig('user.name', 'Industrious robot')
       .branch(['data', 'origin/data'])
@@ -132,7 +144,6 @@ const init = () => {
         err ? reject(err) : resolve()
       )
   )
-}
 
 const commit = () => {
   return new Promise((resolve, reject) =>
@@ -145,7 +156,10 @@ const commit = () => {
 
 const print = text => data => console.log(text) || data
 
-init()
+Promise.resolve(init())
+  .then(print('init success'))
+  .then(checkoutDataBranch)
+  .then(print('checkout data branch success'))
   .then(fetchCityList)
   .then(print('fetch index success'))
   .then(fetchData)
@@ -156,4 +170,4 @@ init()
   .then(print('saveLocal success'))
   .then(commit)
   .then(print('commit success'))
-  .catch(msg => console.print(msg))
+  .catch(msg => log.error('uncached', msg))
