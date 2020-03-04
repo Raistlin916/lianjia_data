@@ -60,7 +60,7 @@ const wrapFetchedData = (id, type) => count => ({
   type,
   id,
   result: {
-    listingNumber: count,
+    count: count,
     createAt: Date.now(),
     date: current
   },
