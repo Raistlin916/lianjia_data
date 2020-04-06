@@ -11,11 +11,21 @@ const log = require('./common/log')
 
 ConcurrencyManager(axios, 5)
 
-const getTaobaoUrl = name =>
+const getTaobaoUrl = (name) =>
   `https://sf.taobao.com/item_list.htm?category=50025969&city=${urlencode.encode(
     name,
     'gbk'
   )}`
+
+const current = dayjs().format('YYYY-MM-DD')
+const pathMap = {
+  lianjia: path.join(__dirname, '../data/lianjia'),
+  lianjiaChengjiao: path.join(__dirname, '../data/lianjia_chengjiao'),
+  taobao: path.join(__dirname, '../data/taobao_paimai'),
+  cityList: path.join(__dirname, '../data'),
+}
+const getPath = (name, type) => path.join(pathMap[type], `${name}.json`)
+const safeFile = (p, data) => fs.writeFileSync(p, JSON.stringify(data, null, 2))
 
 const fetchCityList = async () =>
   $((await axios.get(`https://www.lianjia.com/city/`)).data)
@@ -25,26 +35,22 @@ const fetchCityList = async () =>
       name: $(elem).text(),
       id: ($(elem)
         .attr('href')
-        .match(/^https:\/\/(\w+)\.lianjia.com.*$/) || [])[1]
+        .match(/^https:\/\/(\w+)\.lianjia.com.*$/) || [])[1],
     }))
     .get()
-    .filter(i => i.id)
+    .filter((i) => i.id)
     .concat([
       {
         id: 'jiangsu_taizhou',
         name: '泰州',
         lianjia: false,
-        lianjiaChengjiao: false
-      }
+        lianjiaChengjiao: false,
+      },
     ])
-
-const current = dayjs().format('YYYY-MM-DD')
-const pathMap = {
-  lianjia: path.join(__dirname, '../data/lianjia'),
-  lianjiaChengjiao: path.join(__dirname, '../data/lianjia_chengjiao'),
-  taobao: path.join(__dirname, '../data/taobao_paimai')
+const saveCityList = (list) => {
+  safeFile(getPath('cityList', 'cityList'), list)
+  return list
 }
-const getPath = (id, type) => path.join(pathMap[type], `${id}.json`)
 
 const fetch = {
   lianjia: async ({ id }) =>
@@ -60,21 +66,21 @@ const fetch = {
   taobao: async ({ name }) =>
     +$((await axios.get(getTaobaoUrl(name))).data)
       .find('.count')
-      .text()
+      .text(),
 }
 
-const wrapFetchedData = (id, type) => count => ({
+const wrapFetchedData = (id, type) => (count) => ({
   type,
   id,
   result: {
     count: count,
     createAt: Date.now(),
-    date: current
+    date: current,
   },
-  origin: read(id, type)
+  origin: read(id, type),
 })
 
-const wrapFetch = type => async cityObj => {
+const wrapFetch = (type) => async (cityObj) => {
   try {
     if (cityObj[type] === false) {
       return undefined
@@ -92,7 +98,7 @@ const wrapFetch = type => async cityObj => {
   }
 }
 
-const fetchData = async list =>
+const fetchData = async (list) =>
   (
     await Promise.all(
       list.reduce(
@@ -100,12 +106,12 @@ const fetchData = async list =>
           pre.concat(
             ['lianjia', 'lianjiaChengjiao', 'taobao']
               .map(wrapFetch)
-              .map(item => item(curr))
+              .map((item) => item(curr))
           ),
         []
       )
     )
-  ).filter(i => i)
+  ).filter((i) => i)
 
 const read = (id, type) => {
   try {
@@ -116,14 +122,14 @@ const read = (id, type) => {
   }
 }
 
-const merge = list =>
-  list.map(item => ({
+const merge = (list) =>
+  list.map((item) => ({
     ..._.omit(item, 'result', 'origin'),
-    list: _.uniqBy(item.origin.concat(item.result), 'date')
+    list: _.uniqBy(item.origin.concat(item.result), 'date'),
   }))
 
-const saveLocal = list =>
-  list.forEach(item =>
+const saveLocal = (list) =>
+  list.forEach((item) =>
     fs.writeFileSync(
       getPath(item.id, item.type),
       JSON.stringify(item.list, null, 2)
@@ -131,7 +137,9 @@ const saveLocal = list =>
   )
 
 const init = () => {
-  Object.values(pathMap).forEach(dir => fs.existsSync(dir) || fs.mkdirSync(dir))
+  Object.values(pathMap).forEach(
+    (dir) => fs.existsSync(dir) || fs.mkdirSync(dir)
+  )
 }
 
 const checkoutDataBranch = () =>
@@ -140,7 +148,7 @@ const checkoutDataBranch = () =>
       .addConfig('user.name', 'Industrious robot')
       .branch(['data', 'origin/data'])
       .checkout('data')
-      .mergeFromTo('master', 'data', '--squash', err =>
+      .mergeFromTo('master', 'data', '--squash', (err) =>
         err ? reject(err) : resolve()
       )
   )
@@ -150,17 +158,18 @@ const commit = () => {
     git
       .add('./*')
       .commit(`save at ${current}`)
-      .push('origin', 'data', err => (err ? reject(err) : resolve()))
+      .push('origin', 'data', (err) => (err ? reject(err) : resolve()))
   )
 }
 
-const print = text => data => console.log(text) || data
+const print = (text) => (data) => console.log(text) || data
 
 Promise.resolve(init())
   .then(print('init success'))
   .then(checkoutDataBranch)
   .then(print('checkout data branch success'))
   .then(fetchCityList)
+  .then(saveCityList)
   .then(print('fetch index success'))
   .then(fetchData)
   .then(print('fetch pages success'))
@@ -170,4 +179,4 @@ Promise.resolve(init())
   .then(print('saveLocal success'))
   .then(commit)
   .then(print('commit success'))
-  .catch(msg => log.error('uncached', msg))
+  .catch((msg) => log.error('uncached', msg))
