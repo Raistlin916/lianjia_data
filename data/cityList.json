@@ -1,0 +1,583 @@
+[
+  {
+    "url": "https://aq.lianjia.com/",
+    "name": "安庆",
+    "id": "aq"
+  },
+  {
+    "url": "https://hf.lianjia.com/",
+    "name": "合肥",
+    "id": "hf"
+  },
+  {
+    "url": "https://mas.lianjia.com/",
+    "name": "马鞍山",
+    "id": "mas"
+  },
+  {
+    "url": "https://wuhu.lianjia.com/",
+    "name": "芜湖",
+    "id": "wuhu"
+  },
+  {
+    "url": "https://bj.lianjia.com/",
+    "name": "北京",
+    "id": "bj"
+  },
+  {
+    "url": "https://cq.lianjia.com/",
+    "name": "重庆",
+    "id": "cq"
+  },
+  {
+    "url": "https://fz.lianjia.com/",
+    "name": "福州",
+    "id": "fz"
+  },
+  {
+    "url": "https://quanzhou.lianjia.com/",
+    "name": "泉州",
+    "id": "quanzhou"
+  },
+  {
+    "url": "https://xm.lianjia.com/",
+    "name": "厦门",
+    "id": "xm"
+  },
+  {
+    "url": "https://zhangzhou.lianjia.com/",
+    "name": "漳州",
+    "id": "zhangzhou"
+  },
+  {
+    "url": "https://dg.lianjia.com/",
+    "name": "东莞",
+    "id": "dg"
+  },
+  {
+    "url": "https://fs.lianjia.com/",
+    "name": "佛山",
+    "id": "fs"
+  },
+  {
+    "url": "https://gz.lianjia.com/",
+    "name": "广州",
+    "id": "gz"
+  },
+  {
+    "url": "https://hui.lianjia.com/",
+    "name": "惠州",
+    "id": "hui"
+  },
+  {
+    "url": "https://jiangmen.lianjia.com/",
+    "name": "江门",
+    "id": "jiangmen"
+  },
+  {
+    "url": "https://qy.lianjia.com/",
+    "name": "清远",
+    "id": "qy"
+  },
+  {
+    "url": "https://sz.lianjia.com/",
+    "name": "深圳",
+    "id": "sz"
+  },
+  {
+    "url": "https://zh.lianjia.com/",
+    "name": "珠海",
+    "id": "zh"
+  },
+  {
+    "url": "https://zhanjiang.lianjia.com/",
+    "name": "湛江",
+    "id": "zhanjiang"
+  },
+  {
+    "url": "https://zs.lianjia.com/",
+    "name": "中山",
+    "id": "zs"
+  },
+  {
+    "url": "https://gy.lianjia.com/",
+    "name": "贵阳",
+    "id": "gy"
+  },
+  {
+    "url": "https://bh.lianjia.com/",
+    "name": "北海",
+    "id": "bh"
+  },
+  {
+    "url": "https://fcg.lianjia.com/",
+    "name": "防城港",
+    "id": "fcg"
+  },
+  {
+    "url": "https://gl.lianjia.com/",
+    "name": "桂林",
+    "id": "gl"
+  },
+  {
+    "url": "https://liuzhou.lianjia.com/",
+    "name": "柳州",
+    "id": "liuzhou"
+  },
+  {
+    "url": "https://nn.lianjia.com/",
+    "name": "南宁",
+    "id": "nn"
+  },
+  {
+    "url": "https://lz.lianjia.com/",
+    "name": "兰州",
+    "id": "lz"
+  },
+  {
+    "url": "https://ez.lianjia.com/",
+    "name": "鄂州",
+    "id": "ez"
+  },
+  {
+    "url": "https://huangshi.lianjia.com/",
+    "name": "黄石",
+    "id": "huangshi"
+  },
+  {
+    "url": "https://wh.lianjia.com/",
+    "name": "武汉",
+    "id": "wh"
+  },
+  {
+    "url": "https://xy.lianjia.com/",
+    "name": "襄阳",
+    "id": "xy"
+  },
+  {
+    "url": "https://yichang.lianjia.com/",
+    "name": "宜昌",
+    "id": "yichang"
+  },
+  {
+    "url": "https://cs.lianjia.com/",
+    "name": "长沙",
+    "id": "cs"
+  },
+  {
+    "url": "https://changde.lianjia.com/",
+    "name": "常德",
+    "id": "changde"
+  },
+  {
+    "url": "https://yy.lianjia.com/",
+    "name": "岳阳",
+    "id": "yy"
+  },
+  {
+    "url": "https://zhuzhou.lianjia.com/",
+    "name": "株洲",
+    "id": "zhuzhou"
+  },
+  {
+    "url": "https://bd.lianjia.com/",
+    "name": "保定",
+    "id": "bd"
+  },
+  {
+    "url": "https://lf.lianjia.com/",
+    "name": "廊坊",
+    "id": "lf"
+  },
+  {
+    "url": "https://sjz.lianjia.com/",
+    "name": "石家庄",
+    "id": "sjz"
+  },
+  {
+    "url": "https://ts.lianjia.com/",
+    "name": "唐山",
+    "id": "ts"
+  },
+  {
+    "url": "https://zjk.lianjia.com/",
+    "name": "张家口",
+    "id": "zjk"
+  },
+  {
+    "url": "https://hk.lianjia.com/",
+    "name": "海口",
+    "id": "hk"
+  },
+  {
+    "url": "https://san.lianjia.com/",
+    "name": "三亚",
+    "id": "san"
+  },
+  {
+    "url": "https://kf.lianjia.com/",
+    "name": "开封",
+    "id": "kf"
+  },
+  {
+    "url": "https://luoyang.lianjia.com/",
+    "name": "洛阳",
+    "id": "luoyang"
+  },
+  {
+    "url": "https://xinxiang.lianjia.com/",
+    "name": "新乡",
+    "id": "xinxiang"
+  },
+  {
+    "url": "https://xc.lianjia.com/",
+    "name": "许昌",
+    "id": "xc"
+  },
+  {
+    "url": "https://zz.lianjia.com/",
+    "name": "郑州",
+    "id": "zz"
+  },
+  {
+    "url": "https://zk.lianjia.com/",
+    "name": "周口",
+    "id": "zk"
+  },
+  {
+    "url": "https://zmd.lianjia.com/",
+    "name": "驻马店",
+    "id": "zmd"
+  },
+  {
+    "url": "https://hrb.lianjia.com/",
+    "name": "哈尔滨",
+    "id": "hrb"
+  },
+  {
+    "url": "https://changzhou.lianjia.com/",
+    "name": "常州",
+    "id": "changzhou"
+  },
+  {
+    "url": "https://haimen.lianjia.com/",
+    "name": "海门",
+    "id": "haimen"
+  },
+  {
+    "url": "https://ha.lianjia.com/",
+    "name": "淮安",
+    "id": "ha"
+  },
+  {
+    "url": "https://jy.lianjia.com/",
+    "name": "江阴",
+    "id": "jy"
+  },
+  {
+    "url": "https://ks.lianjia.com/",
+    "name": "昆山",
+    "id": "ks"
+  },
+  {
+    "url": "https://nj.lianjia.com/",
+    "name": "南京",
+    "id": "nj"
+  },
+  {
+    "url": "https://nt.lianjia.com/",
+    "name": "南通",
+    "id": "nt"
+  },
+  {
+    "url": "https://su.lianjia.com/",
+    "name": "苏州",
+    "id": "su"
+  },
+  {
+    "url": "https://wx.lianjia.com/",
+    "name": "无锡",
+    "id": "wx"
+  },
+  {
+    "url": "https://xz.lianjia.com/",
+    "name": "徐州",
+    "id": "xz"
+  },
+  {
+    "url": "https://yc.lianjia.com/",
+    "name": "盐城",
+    "id": "yc"
+  },
+  {
+    "url": "https://zj.lianjia.com/",
+    "name": "镇江",
+    "id": "zj"
+  },
+  {
+    "url": "https://cc.lianjia.com/",
+    "name": "长春",
+    "id": "cc"
+  },
+  {
+    "url": "https://jl.lianjia.com/",
+    "name": "吉林",
+    "id": "jl"
+  },
+  {
+    "url": "https://ganzhou.lianjia.com/",
+    "name": "赣州",
+    "id": "ganzhou"
+  },
+  {
+    "url": "https://jiujiang.lianjia.com/",
+    "name": "九江",
+    "id": "jiujiang"
+  },
+  {
+    "url": "https://jian.lianjia.com/",
+    "name": "吉安",
+    "id": "jian"
+  },
+  {
+    "url": "https://nc.lianjia.com/",
+    "name": "南昌",
+    "id": "nc"
+  },
+  {
+    "url": "https://sr.lianjia.com/",
+    "name": "上饶",
+    "id": "sr"
+  },
+  {
+    "url": "https://dl.lianjia.com/",
+    "name": "大连",
+    "id": "dl"
+  },
+  {
+    "url": "https://dd.lianjia.com/",
+    "name": "丹东",
+    "id": "dd"
+  },
+  {
+    "url": "https://sy.lianjia.com/",
+    "name": "沈阳",
+    "id": "sy"
+  },
+  {
+    "url": "https://baotou.lianjia.com/",
+    "name": "包头",
+    "id": "baotou"
+  },
+  {
+    "url": "https://cf.lianjia.com/",
+    "name": "赤峰",
+    "id": "cf"
+  },
+  {
+    "url": "https://hhht.lianjia.com/",
+    "name": "呼和浩特",
+    "id": "hhht"
+  },
+  {
+    "url": "https://yinchuan.lianjia.com/",
+    "name": "银川",
+    "id": "yinchuan"
+  },
+  {
+    "url": "https://sh.lianjia.com/",
+    "name": "上海",
+    "id": "sh"
+  },
+  {
+    "url": "https://bz.lianjia.com/",
+    "name": "巴中",
+    "id": "bz"
+  },
+  {
+    "url": "https://cd.lianjia.com/",
+    "name": "成都",
+    "id": "cd"
+  },
+  {
+    "url": "https://dy.lianjia.com/",
+    "name": "德阳",
+    "id": "dy"
+  },
+  {
+    "url": "https://dazhou.lianjia.com/",
+    "name": "达州",
+    "id": "dazhou"
+  },
+  {
+    "url": "https://liangshan.lianjia.com/",
+    "name": "凉山",
+    "id": "liangshan"
+  },
+  {
+    "url": "https://mianyang.lianjia.com/",
+    "name": "绵阳",
+    "id": "mianyang"
+  },
+  {
+    "url": "https://nanchong.lianjia.com/",
+    "name": "南充",
+    "id": "nanchong"
+  },
+  {
+    "url": "https://sn.lianjia.com/",
+    "name": "遂宁",
+    "id": "sn"
+  },
+  {
+    "url": "https://heze.lianjia.com/",
+    "name": "菏泽",
+    "id": "heze"
+  },
+  {
+    "url": "https://jn.lianjia.com/",
+    "name": "济南",
+    "id": "jn"
+  },
+  {
+    "url": "https://jining.lianjia.com/",
+    "name": "济宁",
+    "id": "jining"
+  },
+  {
+    "url": "https://linyi.lianjia.com/",
+    "name": "临沂",
+    "id": "linyi"
+  },
+  {
+    "url": "https://qd.lianjia.com/",
+    "name": "青岛",
+    "id": "qd"
+  },
+  {
+    "url": "https://ta.lianjia.com/",
+    "name": "泰安",
+    "id": "ta"
+  },
+  {
+    "url": "https://wf.lianjia.com/",
+    "name": "潍坊",
+    "id": "wf"
+  },
+  {
+    "url": "https://weihai.lianjia.com/",
+    "name": "威海",
+    "id": "weihai"
+  },
+  {
+    "url": "https://yt.lianjia.com/",
+    "name": "烟台",
+    "id": "yt"
+  },
+  {
+    "url": "https://zb.lianjia.com/",
+    "name": "淄博",
+    "id": "zb"
+  },
+  {
+    "url": "https://baoji.lianjia.com/",
+    "name": "宝鸡",
+    "id": "baoji"
+  },
+  {
+    "url": "https://hanzhong.lianjia.com/",
+    "name": "汉中",
+    "id": "hanzhong"
+  },
+  {
+    "url": "https://xa.lianjia.com/",
+    "name": "西安",
+    "id": "xa"
+  },
+  {
+    "url": "https://xianyang.lianjia.com/",
+    "name": "咸阳",
+    "id": "xianyang"
+  },
+  {
+    "url": "https://jz.lianjia.com/",
+    "name": "晋中",
+    "id": "jz"
+  },
+  {
+    "url": "https://ty.lianjia.com/",
+    "name": "太原",
+    "id": "ty"
+  },
+  {
+    "url": "https://tj.lianjia.com/",
+    "name": "天津",
+    "id": "tj"
+  },
+  {
+    "url": "https://dali.lianjia.com/",
+    "name": "大理",
+    "id": "dali"
+  },
+  {
+    "url": "https://km.lianjia.com/",
+    "name": "昆明",
+    "id": "km"
+  },
+  {
+    "url": "https://hz.lianjia.com/",
+    "name": "杭州",
+    "id": "hz"
+  },
+  {
+    "url": "https://huzhou.lianjia.com/",
+    "name": "湖州",
+    "id": "huzhou"
+  },
+  {
+    "url": "https://jx.lianjia.com/",
+    "name": "嘉兴",
+    "id": "jx"
+  },
+  {
+    "url": "https://jh.lianjia.com/",
+    "name": "金华",
+    "id": "jh"
+  },
+  {
+    "url": "https://nb.lianjia.com/",
+    "name": "宁波",
+    "id": "nb"
+  },
+  {
+    "url": "https://quzhou.lianjia.com/",
+    "name": "衢州",
+    "id": "quzhou"
+  },
+  {
+    "url": "https://sx.lianjia.com/",
+    "name": "绍兴",
+    "id": "sx"
+  },
+  {
+    "url": "https://taizhou.lianjia.com/",
+    "name": "台州",
+    "id": "taizhou"
+  },
+  {
+    "url": "https://wz.lianjia.com/",
+    "name": "温州",
+    "id": "wz"
+  },
+  {
+    "url": "https://yw.lianjia.com/",
+    "name": "义乌",
+    "id": "yw"
+  },
+  {
+    "id": "jiangsu_taizhou",
+    "name": "泰州",
+    "lianjia": false,
+    "lianjiaChengjiao": false
+  }
+]
