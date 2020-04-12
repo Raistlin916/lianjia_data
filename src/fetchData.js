@@ -21,6 +21,7 @@ const current = dayjs().format('YYYY-MM-DD')
 const pathMap = {
   lianjia: path.join(__dirname, '../data/lianjia'),
   lianjiaChengjiao: path.join(__dirname, '../data/lianjia_chengjiao'),
+  lianjiaRent: path.join(__dirname, '../data/lianjia_rent'),
   taobao: path.join(__dirname, '../data/taobao_paimai'),
   cityList: path.join(__dirname, '../data'),
 }
@@ -52,7 +53,7 @@ const saveCityList = (list) => {
   return list
 }
 
-const fetch = {
+const fetchMap = {
   lianjia: async ({ id }) =>
     +$((await axios.get(`https://${id}.lianjia.com/`)).data)
       .find('.house-num li:first-child')
@@ -61,6 +62,11 @@ const fetch = {
   lianjiaChengjiao: async ({ id }) =>
     +$((await axios.get(`https://${id}.lianjia.com/chengjiao`)).data)
       .find('.resultDes')
+      .text()
+      .match(/\d+/)[0],
+  lianjiaRent: async ({ id }) =>
+    +$((await axios.get(`https://${id}.lianjia.com/zufang`)).data)
+      .find('.content__title')
       .text()
       .match(/\d+/)[0],
   taobao: async ({ name }) =>
@@ -87,7 +93,7 @@ const wrapFetch = (type) => async (cityObj) => {
     }
     const logName = `fetch ${type}-${cityObj.id} success`
     console.time(logName)
-    const result = await fetch[type](cityObj).then(
+    const result = await fetchMap[type](cityObj).then(
       wrapFetchedData(cityObj.id, type)
     )
     console.timeEnd(logName)
@@ -104,7 +110,7 @@ const fetchData = async (list) =>
       list.reduce(
         (pre, curr) =>
           pre.concat(
-            ['lianjia', 'lianjiaChengjiao', 'taobao']
+            Object.keys(fetchMap)
               .map(wrapFetch)
               .map((item) => item(curr))
           ),
