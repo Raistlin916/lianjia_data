@@ -255,11 +255,6 @@
     "id": "hrb"
   },
   {
-    "url": "https://fuzhou.lianjia.com/",
-    "name": "抚州",
-    "id": "fuzhou"
-  },
-  {
     "url": "https://ganzhou.lianjia.com/",
     "name": "赣州",
     "id": "ganzhou"
@@ -280,19 +275,9 @@
     "id": "nc"
   },
   {
-    "url": "https://pingxiang.lianjia.com/",
-    "name": "萍乡",
-    "id": "pingxiang"
-  },
-  {
     "url": "https://sr.lianjia.com/",
     "name": "上饶",
     "id": "sr"
-  },
-  {
-    "url": "https://ych.lianjia.com/",
-    "name": "宜春",
-    "id": "ych"
   },
   {
     "url": "https://changzhou.lianjia.com/",
