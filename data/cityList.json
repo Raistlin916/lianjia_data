@@ -160,6 +160,11 @@
     "id": "zjk"
   },
   {
+    "url": "https://cm.lianjia.com/",
+    "name": "澄迈",
+    "id": "cm"
+  },
+  {
     "url": "https://hk.lianjia.com/",
     "name": "海口",
     "id": "hk"
@@ -208,6 +213,11 @@
     "url": "https://xc.lianjia.com/",
     "name": "许昌",
     "id": "xc"
+  },
+  {
+    "url": "https://xinyang.lianjia.com/",
+    "name": "信阳",
+    "id": "xinyang"
   },
   {
     "url": "https://zz.lianjia.com/",
